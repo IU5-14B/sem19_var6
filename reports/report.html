@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Отчет по задаче линейного программирования</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        h1, h2, h3 { color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .problem { background: #f4f4f4; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .solution { background: #e8f4f8; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .result { background: #d4edda; padding: 15px; border-radius: 5px; margin: 15px 0; }
+        .simplex-table { overflow-x: auto; margin: 20px 0; }
+        .simplex-table table { min-width: 800px; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h1>Отчет по решению задачи линейного программирования</h1>
+        <div class='problem'>
+            <h2>Постановка задачи</h2>
+            <p><strong>Целевая функция:</strong> максимизировать Z = 0.10x + 0.07y + 0.03z</p>
+            <p><strong>Ограничения:</strong></p>
+            <ul>
+                <li>x + y + z = 100</li>
+                <li>x ≤ (1/3)y</li>
+                <li>z ≥ 0.25(x + y)</li>
+                <li>x ≥ 0, y ≥ 0, z ≥ 0</li>
+            </ul>
+        </div>
+        <div class='solution'>
+            <h2>Симплекс-таблица</h2>
+            <div class='simplex-table'>
+                <table>
+                    <tr>
+                        <th>Базис</th><th>x</th><th>y</th><th>z</th><th>s1</th><th>s2</th><th>s3</th><th>a1</th><th>Решение</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Z</strong></td>
+                        <td>-0.1000</td>
+                        <td>-0.0700</td>
+                        <td>-0.0300</td>
+                        <td>0.0000</td>
+                        <td>0.0000</td>
+                        <td>0.0000</td>
+                        <td>0.0000</td>
+                        <td><strong>0.0000</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>a1</strong></td>
+                        <td>1.0000</td>
+                        <td>1.0000</td>
+                        <td>1.0000</td>
+                        <td>0.0000</td>
+                        <td>0.0000</td>
+                        <td>0.0000</td>
+                        <td>1.0000</td>
+                        <td><strong>100.0000</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>s2</strong></td>
+                        <td>1.0000</td>
+                        <td>-0.3333</td>
+                        <td>0.0000</td>
+                        <td>0.0000</td>
+                        <td>1.0000</td>
+                        <td>0.0000</td>
+                        <td>0.0000</td>
+                        <td><strong>0.0000</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>s3</strong></td>
+                        <td>-0.2500</td>
+                        <td>-0.2500</td>
+                        <td>1.0000</td>
+                        <td>0.0000</td>
+                        <td>0.0000</td>
+                        <td>-1.0000</td>
+                        <td>0.0000</td>
+                        <td><strong>0.0000</strong></td>
+                    </tr>
+                </table>
+            </div>
+            <p><em>Примечание: s1, s2, s3 - дополнительные переменные, a1 - искусственная переменная</em></p>
+        </div>
+        <div class='solution'>
+            <h2>Результаты оптимизации</h2>
+            <div class='result'>
+                <h3>Оптимальное решение:</h3>
+                <table>
+                    <tr><th>Переменная</th><th>Значение</th></tr>
+                    <tr><td>x</td><td>20.0000</td></tr>
+                    <tr><td>y</td><td>60.0000</td></tr>
+                    <tr><td>z</td><td>20.0000</td></tr>
+                </table>
+                <p><strong>Максимальное значение целевой функции:</strong> 6.8000</p>
+            </div>
+            <h3>Проверка ограничений:</h3>
+            <table>
+                <tr><th>Ограничение</th><th>Значение</th><th>Статус</th></tr>
+                <tr><td>x + y + z = 100</td><td>100.0000</td><td>✓ Выполнено</td></tr>
+                <tr><td>x ≤ y/3</td><td>20.0000 ≤ 20.0000</td><td>✓ Выполнено</td></tr>
+                <tr><td>z ≥ 0.25(x+y)</td><td>20.0000 ≥ 20.0000</td><td>✓ Выполнено</td></tr>
+            </table>
+        </div>
+        <div class='solution'>
+            <h2>Анализ решения</h2>
+            <p>Задача решена с использованием симплекс-метода. Процесс решения включает:</p>
+            <ul>
+                <li>Приведение задачи к стандартной форме</li>
+                <li>Построение начальной симплекс-таблицы</li>
+                <li>Выполнение итераций симплекс-метода</li>
+                <li>Проверка условий оптимальности</li>
+            </ul>
+            <p>Оптимальное решение достигается при x = 20.0000, y = 60.0000, z = 20.0000 с максимальным значением целевой функции Z = 6.8000.</p>
+        </div>
+    </div>
+</body>
+</html>
